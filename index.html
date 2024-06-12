@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Bot</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px;">
+        <h1 style="text-align: center; color: #333;">ChatGPT Bot</h1>
+        <div id="chatbox" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; height: 300px; overflow-y: auto; margin-bottom: 15px;">
+            <!-- Chat messages will appear here -->
+        </div>
+        <div style="display: flex;">
+            <input type="text" id="userInput" placeholder="Type your message..." style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px 0 0 5px;"/>
+            <button onclick="sendMessage()" style="padding: 10px; border: none; border-radius: 0 5px 5px 0; background-color: #007BFF; color: white; cursor: pointer;">Send</button>
+        </div>
+    </div>
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            if (!userInput) return;
+
+            // Display user message
+            const chatbox = document.getElementById('chatbox');
+            const userMessage = document.createElement('div');
+            userMessage.style = "background-color: #007BFF; color: white; padding: 10px; border-radius: 5px; margin-bottom: 10px; text-align: right;";
+            userMessage.textContent = userInput;
+            chatbox.appendChild(userMessage);
+
+            // Clear input field
+            document.getElementById('userInput').value = '';
+
+            // Scroll to bottom
+            chatbox.scrollTop = chatbox.scrollHeight;
+
+            // Get bot response
+            const botResponse = await getBotResponse(userInput);
+
+            // Display bot response
+            const botMessage = document.createElement('div');
+            botMessage.style = "background-color: #f1f1f1; color: #333; padding: 10px; border-radius: 5px; margin-bottom: 10px; text-align: left;";
+            botMessage.textContent = botResponse;
+            chatbox.appendChild(botMessage);
+
+            // Scroll to bottom
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        async function getBotResponse(input) {
+            // Replace with actual ChatGPT API call in a real implementation
+            const responses = {
+                "hello": "Hello! How can I help you today?",
+                "how are you": "I'm a bot, so I don't have feelings, but thanks for asking!",
+                "bye": "Goodbye! Have a great day!"
+            };
+            return responses[input.toLowerCase()] || "Sorry, I didn't understand that.";
+        }
+    </script>
+</body>
+</html>
